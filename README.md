@@ -264,17 +264,8 @@ Analysis of 80 lots and 1,100 operations across 5 benchmark instances.
 - Extend to Flexible Job Shop Scheduling (FJSP) instances.
 - Build a Streamlit interactive dashboard for what-if scenario testing.
 
-## 12. Resume Bullet
 
-**English:**
-
-> Developed a Python-based fab capacity simulation model using public job-shop scheduling benchmark data; compared FIFO, SPT, EDD, and Critical Ratio dispatching rules, evaluated makespan, cycle time, queue time, tool utilization, and on-time rate, and conducted bottleneck capacity scenario analysis.
-
-**中文：**
-
-> 基于公开 Job Shop Scheduling benchmark 构建类晶圆厂产能仿真模型，使用 Python 比较 FIFO、SPT、EDD、Critical Ratio 等派工规则，并从 makespan、周期时间、排队时间、设备利用率和准时率角度评估产能改善方案。
-
-## 13. Tech Stack
+## 12. Tech Stack
 
 | Layer | Technology |
 |-------|------------|
@@ -284,7 +275,7 @@ Analysis of 80 lots and 1,100 operations across 5 benchmark instances.
 | Notebooks | Jupyter |
 | Version Control | Git |
 
-## 14. Relationship to the SQL Data Mart Project
+## 13. Relationship to the SQL Data Mart Project
 
 This project is the **Python simulation counterpart** to the [Fab Production Logistics KPI Data Mart](https://github.com/zhangjug/SQL) SQL project:
 
