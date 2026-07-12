@@ -1,0 +1,17 @@
+scenario_id,rule_name,rule_label,makespan,avg_cycle_time,median_cycle_time,avg_queue_time,queue_time_ratio,max_lateness,on_time_rate,avg_tool_utilization,bottleneck_tool,bottleneck_utilization,composite_bottleneck_tool,composite_bottleneck_score,total_lots,total_operations
+baseline,FIFO,First-In-First-Out,82.25,54.89,53.98,47.36,85.9,0,100.0,48.8,T01,60.5,T00,0.9814,80,1100
+baseline,SPT,Shortest Processing Time,118.02,60.54,56.83,53.02,86.6,0,100.0,34.0,T01,42.2,T13,0.9889,80,1100
+baseline,EDD,Earliest Due Date,119.52,66.78,67.57,59.26,87.5,0,100.0,33.6,T01,41.7,T13,0.9889,80,1100
+baseline,CR,Critical Ratio,83.87,62.98,64.43,55.46,87.8,0,100.0,47.8,T01,59.4,T13,0.9846,80,1100
+bottleneck_+10%_capacity,FIFO,First-In-First-Out,79.37,52.4,52.4,44.94,85.3,0,100.0,50.1,T01,62.7,T11,0.9357,80,1100
+bottleneck_+10%_capacity,SPT,Shortest Processing Time,117.66,60.36,56.57,52.89,86.7,0,100.0,33.8,T01,42.3,T13,0.9889,80,1100
+bottleneck_+10%_capacity,EDD,Earliest Due Date,118.61,66.25,67.18,58.79,87.5,0,100.0,33.6,T01,42.0,T13,0.9889,80,1100
+bottleneck_+10%_capacity,CR,Critical Ratio,84.65,63.04,63.74,55.58,87.9,0,100.0,47.0,T01,58.8,T13,0.9746,80,1100
+bottleneck_+20%_capacity,FIFO,First-In-First-Out,78.25,51.17,51.03,43.77,85.0,0,100.0,50.5,T01,63.6,T11,0.9796,80,1100
+bottleneck_+20%_capacity,SPT,Shortest Processing Time,117.37,60.22,56.38,52.82,86.8,0,100.0,33.6,T01,42.4,T13,0.9889,80,1100
+bottleneck_+20%_capacity,EDD,Earliest Due Date,117.8,65.8,66.92,58.39,87.6,0,100.0,33.5,T01,42.3,T13,0.9889,80,1100
+bottleneck_+20%_capacity,CR,Critical Ratio,83.55,62.41,62.98,55.01,87.9,0,100.0,47.3,T01,59.6,T02,0.9688,80,1100
+extra_parallel_tool,FIFO,First-In-First-Out,78.65,49.74,50.68,42.22,84.1,0,100.0,47.8,T01,63.3,T10,0.9975,80,1100
+extra_parallel_tool,SPT,Shortest Processing Time,115.82,58.65,54.87,51.13,86.1,0,100.0,32.5,T01,43.0,T12,0.9889,80,1100
+extra_parallel_tool,EDD,Earliest Due Date,112.4,62.27,62.7,54.75,86.4,0,100.0,33.5,T01,44.3,T12,0.989,80,1100
+extra_parallel_tool,CR,Critical Ratio,81.07,60.19,61.72,52.66,87.2,0,100.0,46.4,T01,61.4,T12,0.9858,80,1100

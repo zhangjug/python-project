@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.env
+.venv/
+.reasonix/
+.ipynb_checkpoints/
+*.db
+*.db-journal
+~$*.docx

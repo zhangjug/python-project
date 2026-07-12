@@ -1,0 +1,5 @@
+scenario_id,rule_name,rule_label,makespan,avg_cycle_time,median_cycle_time,avg_queue_time,queue_time_ratio,max_lateness,on_time_rate,avg_tool_utilization,bottleneck_tool,bottleneck_utilization,composite_bottleneck_tool,composite_bottleneck_score,total_lots,total_operations
+baseline,FIFO,First-In-First-Out,82.25,54.89,53.98,47.36,85.9,0,100.0,48.8,T01,60.5,T00,0.9814,80,1100
+baseline,SPT,Shortest Processing Time,118.02,60.54,56.83,53.02,86.6,0,100.0,34.0,T01,42.2,T13,0.9889,80,1100
+baseline,EDD,Earliest Due Date,119.52,66.78,67.57,59.26,87.5,0,100.0,33.6,T01,41.7,T13,0.9889,80,1100
+baseline,CR,Critical Ratio,83.87,62.98,64.43,55.46,87.8,0,100.0,47.8,T01,59.4,T13,0.9846,80,1100

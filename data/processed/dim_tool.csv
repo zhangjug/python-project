@@ -1,0 +1,16 @@
+tool_id,tool_group,tool_type,is_constraint_tool
+T00,TG_00,LITHO,true
+T01,TG_00,ETCH,false
+T02,TG_00,CMP,false
+T03,TG_01,CVD,true
+T04,TG_01,METRO,false
+T05,TG_01,LITHO,true
+T06,TG_02,ETCH,false
+T07,TG_02,CMP,false
+T08,TG_02,CVD,true
+T09,TG_03,METRO,false
+T10,TG_03,LITHO,false
+T11,TG_03,ETCH,true
+T12,TG_04,CMP,false
+T13,TG_04,CVD,false
+T14,TG_04,METRO,false
