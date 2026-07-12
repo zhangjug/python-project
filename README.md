@@ -288,12 +288,12 @@ Analysis of 80 lots and 1,100 operations across 5 benchmark instances.
 
 This project is the **Python simulation counterpart** to the [Fab Production Logistics KPI Data Mart](https://github.com/zhangjug/SQL) SQL project:
 
-| Project | Focus | Skills |
-|---------|-------|--------|
-| SQL Data Mart | KPI monitoring, dashboard, capacity audit | SQL, data modeling, dashboard |
-| Python Simulation | Dispatching rules, capacity scenarios, optimization | Python, simulation, IE decision support |
+| Project | Focus | Role |
+|---------|-------|------|
+| SQL Data Mart | KPI monitoring, dashboard, capacity audit | Data modeling & metrics system |
+| Python Simulation | Dispatching rules, capacity scenarios, optimization | Simulation engine & decision support |
 
-Together they demonstrate: *"Logistics Engineering candidate with hands-on experience in SQL-based manufacturing KPI systems and Python-based capacity simulation for fab-like production environments."*
+Together the two projects form a complete decision-support pipeline — from production status monitoring and bottleneck diagnosis to capacity scenario evaluation.
 
 ## License
 

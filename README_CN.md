@@ -264,16 +264,6 @@ python -m pytest tests -v
 - 扩展到 Flexible Job Shop Scheduling (FJSP) 实例。
 - 构建 Streamlit 交互式 dashboard，用于 what-if 情景测试。
 
-## 12. 简历描述
-
-**English：**
-
-> Developed a Python-based fab capacity simulation model using public job-shop scheduling benchmark data; compared FIFO, SPT, EDD, and Critical Ratio dispatching rules, evaluated makespan, cycle time, queue time, tool utilization, and on-time rate, and conducted bottleneck capacity scenario analysis.
-
-**中文：**
-
-> 基于公开 Job Shop Scheduling benchmark 构建类晶圆厂产能仿真模型，使用 Python 比较 FIFO、SPT、EDD、Critical Ratio 等派工规则，并从 makespan、周期时间、排队时间、设备利用率和准时率角度评估产能改善方案与瓶颈扩容情景。
-
 ## 13. 技术栈
 
 | 层级 | 技术 |
@@ -288,12 +278,12 @@ python -m pytest tests -v
 
 本项目是 [Fab Production Logistics KPI Data Mart](https://github.com/zhangjug/SQL) SQL 项目的 **Python 仿真配套项目**：
 
-| 项目 | 关注点 | 能力 |
+| 项目 | 关注点 | 定位 |
 |------|--------|------|
-| SQL Data Mart | KPI 监控、dashboard、产能审计 | SQL、数据建模、dashboard |
-| Python Simulation | 派工规则、产能情景、优化分析 | Python、仿真、IE 决策支持 |
+| SQL Data Mart | KPI 监控、dashboard、产能审计 | 数据建模与指标系统 |
+| Python Simulation | 派工规则、产能情景、优化分析 | 仿真引擎与决策支持 |
 
-两个项目共同展示：*"具备 SQL 制造 KPI 系统经验和 Python 类 fab 产能仿真能力的 Logistics Engineering 候选人。"*
+两个项目共同构成从生产状态监控、瓶颈诊断到产能情景评估的完整决策支持流程。
 
 ## 许可证
 
