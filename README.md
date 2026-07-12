@@ -1,6 +1,37 @@
 # Fab Capacity Simulation & Dispatching Optimization
 
+[**English**](README.md) | [**中文**](README_CN.md)
+
 > A Python-based fab capacity simulation model using public job-shop scheduling benchmark data. Compares FIFO, SPT, EDD, and Critical Ratio dispatching rules, evaluates makespan, cycle time, queue time, tool utilization, and on-time rate, and conducts bottleneck capacity scenario analysis.
+
+---
+
+## 🚀 5-Minute Quick Tour
+
+This project simulates wafer lot processing in a fab-like environment, comparing 4 dispatching rules and 3 capacity expansion scenarios to identify the best strategies for reducing cycle time and improving throughput.
+
+### Visual Highlights
+
+| Rule Comparison | Bottleneck Ranking |
+|----------------|-------------------|
+| ![Rule Comparison](outputs/figures/rule_comparison.png) | ![Bottleneck Ranking](outputs/figures/bottleneck_ranking.png) |
+
+| FIFO Gantt Chart | Capacity Scenario |
+|-----------------|-------------------|
+| ![FIFO Gantt](outputs/figures/gantt_fifo.png) | ![Scenario Improvement](outputs/figures/scenario_improvement_waterfall.png) |
+
+### Key Results at a Glance
+
+| Metric | Best Rule | Value |
+|--------|-----------|-------|
+| **Makespan** | FIFO | **82.25 h** |
+| **Avg Cycle Time** | FIFO | **54.89 h** |
+| **Queue Time Ratio** | FIFO | **85.9%** |
+| **On-Time Rate** | All | **100%** |
+| **Bottleneck** | — | Tool T07 (composite score) |
+| **Best Capacity Improvement** | Extra parallel tool | −9.4% cycle time |
+
+---
 
 ## 1. Business Background
 
@@ -49,14 +80,10 @@ This project simulates a fab-like production system where wafer lots follow fixe
 ```
 fab-capacity-simulation-python/
   README.md
+  README_CN.md
   data/
     raw/                  # Original benchmark instances (abz5–abz9)
     processed/            # Parsed CSV data
-      operations.csv
-      dim_lot.csv
-      dim_tool.csv
-      fact_schedule_event_fifo_baseline.csv
-      fact_capacity_calendar.csv
   src/
     parser.py             # Parse raw JSP data into operations.csv
     simulator.py          # Discrete-event simulation engine
@@ -80,7 +107,7 @@ fab-capacity-simulation-python/
 - pip
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
 ### Step 1: Parse Benchmark Data
@@ -119,11 +146,11 @@ Expected outputs:
 
 Chart files in `outputs/figures/`:
 
-- `gantt_fifo.png`
+- `gantt_fifo.png`, `gantt_cr.png`
 - `rule_comparison.png`
-- `utilization_heatmap_fifo.png`
+- `utilization_heatmap_fifo.png`, `utilization_heatmap_cr.png`
 - `bottleneck_ranking.png`
-- `queue_distribution_fifo.png`
+- `queue_distribution_fifo.png`, `queue_distribution_cr.png`
 - `scenario_improvement_waterfall.png`
 
 ### Step 3: Explore Notebooks
@@ -188,12 +215,12 @@ Analysis of 80 lots and 1,100 operations across 5 benchmark instances.
 - **FIFO achieved the lowest makespan and average cycle time** in this benchmark configuration, outperforming SPT and EDD under the current synthetic release schedule and due-date assumptions.
 - **CR produced a similar makespan to FIFO** (83.87 h vs 82.25 h) but with higher average cycle time — it is the best alternative when urgency-awareness is needed.
 - **SPT and EDD did not outperform FIFO** on any metric for this specific instance set. This is expected in fixed-route job shops where purely local decisions can create downstream congestion.
-- **All rules reached 100% on-time rate** because synthetic due dates (~14 days) are relatively loose compared to actual cycle times (~3–5 days). Future versions should tighten due-date assumptions to better evaluate EDD and CR.
+- **All rules reached 100% on-time rate** because synthetic due dates (~14 days) are relatively loose compared to actual cycle times (~3–5 days).
 
 ### Bottleneck & Capacity
 
 - **Composite bottleneck tool T07** ranked highest on the weighted score (utilisation 0.4 + queue time 0.4 + WIP 0.2).
-- **Highest-utilisation tool T01** reached 60.5% utilisation under FIFO — less than typical real-fab bottlenecks but still the primary constraint in this dataset.
+- **Highest-utilisation tool T01** reached 60.5% utilisation under FIFO.
 - Bottleneck capacity expansion reduces queue time more effectively than changing dispatching rules alone.
 - Adding a parallel tool at the bottleneck station provided the largest improvement: **−9.4% cycle time, −10.9% queue time** for FIFO.
 
@@ -245,7 +272,7 @@ Analysis of 80 lots and 1,100 operations across 5 benchmark instances.
 
 ## 14. Relationship to the SQL Data Mart Project
 
-This project is the **Python simulation counterpart** to the [Fab Production Logistics KPI Data Mart](../SQL/fab-production-logistics-sql/) SQL project:
+This project is the **Python simulation counterpart** to the [Fab Production Logistics KPI Data Mart](https://github.com/zhangjug/SQL) SQL project:
 
 | Project | Focus | Skills |
 |---------|-------|--------|
@@ -253,3 +280,7 @@ This project is the **Python simulation counterpart** to the [Fab Production Log
 | Python Simulation | Dispatching rules, capacity scenarios, optimization | Python, simulation, IE decision support |
 
 Together they demonstrate: *"Logistics Engineering candidate with hands-on experience in SQL-based manufacturing KPI systems and Python-based capacity simulation for fab-like production environments."*
+
+## License
+
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.

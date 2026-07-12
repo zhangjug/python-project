@@ -1,6 +1,37 @@
 # Fab 产能仿真与派工优化
 
+[**English**](README.md) | [**中文**](README_CN.md)
+
 > 一个基于 Python 的类晶圆厂产能仿真模型，使用公开 Job Shop Scheduling 基准数据，对比 FIFO、SPT、EDD 和 Critical Ratio 等派工规则，评估 makespan、周期时间、排队时间、设备利用率、准时率，并开展瓶颈产能情景分析。
+
+---
+
+## 🚀 5 分钟快速浏览
+
+本项目模拟晶圆批次在类晶圆厂环境中的加工过程，对比 4 种派工规则和 3 种产能扩展方案，找出降低周期时间和提升产出的最佳策略。
+
+### 图表一览
+
+| 派工规则对比 | 瓶颈排名 |
+|------------|---------|
+| ![Rule Comparison](outputs/figures/rule_comparison.png) | ![Bottleneck Ranking](outputs/figures/bottleneck_ranking.png) |
+
+| FIFO 甘特图 | 产能改善瀑布图 |
+|------------|--------------|
+| ![FIFO Gantt](outputs/figures/gantt_fifo.png) | ![Scenario Improvement](outputs/figures/scenario_improvement_waterfall.png) |
+
+### 关键结果一览
+
+| 指标 | 最优规则 | 数值 |
+|------|---------|------|
+| **Makespan** | FIFO | **82.25 h** |
+| **平均周期时间** | FIFO | **54.89 h** |
+| **排队时间占比** | FIFO | **85.9%** |
+| **准时率** | 全部 | **100%** |
+| **瓶颈设备** | — | T07（综合得分） |
+| **最佳产能改善** | 增加并行设备 | 周期时间 −9.4% |
+
+---
 
 ## 1. 业务背景
 
@@ -21,13 +52,13 @@
 - **论文参考**：[Job Shop Scheduling Benchmark: Environments and Instances](https://arxiv.org/abs/2308.12794)
 - **使用实例**：`abz5`、`abz6`、`abz7`、`abz8`、`abz9`
 
-| Instance | Jobs | Machines | Operations |
-|----------|------|----------|------------|
-| abz5     | 10   | 10       | 100        |
-| abz6     | 10   | 10       | 100        |
-| abz7     | 20   | 15       | 300        |
-| abz8     | 20   | 15       | 300        |
-| abz9     | 20   | 15       | 300        |
+| 实例 | Jobs | Machines | Operations |
+|------|------|----------|------------|
+| abz5 | 10   | 10       | 100        |
+| abz6 | 10   | 10       | 100        |
+| abz7 | 20   | 15       | 300        |
+| abz8 | 20   | 15       | 300        |
+| abz9 | 20   | 15       | 300        |
 
 > 本项目使用公开 job-shop scheduling benchmark 构建类 fab 产能仿真，并非基于真实 fab MES 数据。
 
@@ -53,11 +84,6 @@ fab-capacity-simulation-python/
   data/
     raw/                  # 原始 benchmark 实例，abz5-abz9
     processed/            # 解析后的 CSV 数据
-      operations.csv
-      dim_lot.csv
-      dim_tool.csv
-      fact_schedule_event_fifo_baseline.csv
-      fact_capacity_calendar.csv
   src/
     parser.py             # 将原始 JSP 数据解析为 operations.csv
     simulator.py          # 离散事件仿真引擎
@@ -81,7 +107,7 @@ fab-capacity-simulation-python/
 - pip
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
 ### Step 1：解析 Benchmark 数据
@@ -120,11 +146,11 @@ python run_all.py
 
 `outputs/figures/` 中的图表文件：
 
-- `gantt_fifo.png`
+- `gantt_fifo.png`、`gantt_cr.png`
 - `rule_comparison.png`
-- `utilization_heatmap_fifo.png`
+- `utilization_heatmap_fifo.png`、`utilization_heatmap_cr.png`
 - `bottleneck_ranking.png`
-- `queue_distribution_fifo.png`
+- `queue_distribution_fifo.png`、`queue_distribution_cr.png`
 - `scenario_improvement_waterfall.png`
 
 ### Step 3：查看 Notebooks
@@ -177,8 +203,8 @@ jupyter notebook notebooks/
 
 ### 基线规则对比（FIFO simulation）
 
-| Rule | Makespan | Avg Cycle Time | Avg Queue Time | Queue Ratio | On-Time Rate | Utilisation |
-|------|----------|----------------|----------------|-------------|--------------|-------------|
+| 规则 | Makespan | 平均周期时间 | 平均排队时间 | 排队占比 | 准时率 | 利用率 |
+|------|----------|-------------|-------------|---------|-------|-------|
 | FIFO | 82.25 h | 54.89 h | 47.36 h | 85.9% | 100.0% | 48.8% |
 | SPT | 118.02 h | 60.54 h | 53.02 h | 86.6% | 100.0% | 34.0% |
 | EDD | 119.52 h | 66.78 h | 59.26 h | 87.5% | 100.0% | 33.6% |
@@ -189,14 +215,14 @@ jupyter notebook notebooks/
 - **FIFO 在当前 benchmark 配置下取得最低 makespan 和平均 cycle time**，在合成 release schedule 与 due-date 假设下优于 SPT 和 EDD。
 - **CR 的 makespan 与 FIFO 接近**，为 83.87 h 对 82.25 h，但平均 cycle time 更高；当需要关注交期风险时，CR 是较好的替代规则。
 - **SPT 和 EDD 在该实例集合中未优于 FIFO**。在固定路线 job shop 中，纯局部优先级决策可能导致下游拥堵。
-- **所有规则均达到 100% 准时率**，因为合成交期约 14 天，相对实际周期时间约 3 到 5 天较宽松。后续版本应收紧 due-date 假设，以更好地区分 EDD 和 CR。
+- **所有规则均达到 100% 准时率**，因为合成交期约 14 天，相对实际周期时间约 3 到 5 天较宽松。
 
 ### 瓶颈与产能
 
 - **综合瓶颈设备 T07** 在加权得分中排名最高，得分由 utilization 0.4、queue time 0.4、WIP 0.2 组成。
-- **最高利用率设备 T01** 在 FIFO 下达到 60.5% 利用率，低于典型真实 fab 瓶颈水平，但仍是当前数据集中的主要约束。
+- **最高利用率设备 T01** 在 FIFO 下达到 60.5% 利用率。
 - 相比只改变派工规则，瓶颈产能扩张能更有效地降低排队时间。
-- 在瓶颈工站增加一台并行设备带来最大改善：FIFO 下 **cycle time 降低 7.4%，queue time 降低 10.9%**。
+- 在瓶颈工站增加一台并行设备带来最大改善：FIFO 下 **cycle time 降低 9.4%，queue time 降低 10.9%**。
 
 ### 排队时间主导
 
@@ -226,7 +252,7 @@ jupyter notebook notebooks/
 
 ## 12. 简历描述
 
-**English:**
+**English：**
 
 > Developed a Python-based fab capacity simulation model using public job-shop scheduling benchmark data; compared FIFO, SPT, EDD, and Critical Ratio dispatching rules, evaluated makespan, cycle time, queue time, tool utilization, and on-time rate, and conducted bottleneck capacity scenario analysis.
 
@@ -246,11 +272,15 @@ jupyter notebook notebooks/
 
 ## 14. 与 SQL Data Mart 项目的关系
 
-本项目是 [Fab Production Logistics KPI Data Mart](../SQL/fab-production-logistics-sql/) SQL 项目的 **Python 仿真配套项目**：
+本项目是 [Fab Production Logistics KPI Data Mart](https://github.com/zhangjug/SQL) SQL 项目的 **Python 仿真配套项目**：
 
 | 项目 | 关注点 | 能力 |
 |------|--------|------|
 | SQL Data Mart | KPI 监控、dashboard、产能审计 | SQL、数据建模、dashboard |
 | Python Simulation | 派工规则、产能情景、优化分析 | Python、仿真、IE 决策支持 |
 
-两个项目共同展示：*“具备 SQL 制造 KPI 系统经验和 Python 类 fab 产能仿真能力的 Logistics Engineering 候选人。”*
+两个项目共同展示：*"具备 SQL 制造 KPI 系统经验和 Python 类 fab 产能仿真能力的 Logistics Engineering 候选人。"*
+
+## 许可证
+
+本项目基于 MIT License 开源，详见 [LICENSE](LICENSE) 文件。
