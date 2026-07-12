@@ -329,22 +329,33 @@ def generate_all_charts(
     summaries: list[dict],
     ranking: list[dict] | None = None,
     improvements: list[dict] | None = None,
+    events_by_rule: dict[str, list[dict]] | None = None,
 ):
-    """Convenience function — generate all 6 chart types."""
+    """Convenience function — generate all available chart types.
+
+    Generates FIFO charts by default, plus CR charts when events_by_rule is provided.
+    """
     rule_names = sorted(set(s.get("rule_name", "FIFO") for s in summaries))
     primary_rule = "FIFO" if "FIFO" in rule_names else rule_names[0]
+    extra_rules = [r for r in ["CR"] if r in rule_names and r != primary_rule]
 
     print("Generating charts...")
     _ensure_figures_dir()
 
-    # 1. Gantt (FIFO as baseline)
+    # 1. Gantt (FIFO baseline + extra rules)
     plot_gantt(events, rule_name=primary_rule)
+    for r in extra_rules:
+        if events_by_rule and r in events_by_rule:
+            plot_gantt(events_by_rule[r], rule_name=r)
 
     # 2. Rule comparison
     plot_rule_comparison(summaries)
 
-    # 3. Utilisation heatmap (FIFO)
+    # 3. Utilisation heatmap (FIFO + extra rules)
     plot_utilization_heatmap(events, rule_name=primary_rule)
+    for r in extra_rules:
+        if events_by_rule and r in events_by_rule:
+            plot_utilization_heatmap(events_by_rule[r], rule_name=r)
 
     # 4. Bottleneck ranking
     if ranking:
@@ -355,8 +366,11 @@ def generate_all_charts(
         br = bottleneck_ranking_from_events(fifo_events)
         plot_bottleneck_ranking(br)
 
-    # 5. Queue distribution (FIFO)
+    # 5. Queue distribution (FIFO + extra rules)
     plot_queue_distribution(events, rule_name=primary_rule)
+    for r in extra_rules:
+        if events_by_rule and r in events_by_rule:
+            plot_queue_distribution(events_by_rule[r], rule_name=r)
 
     # 6. Scenario improvement
     if improvements:

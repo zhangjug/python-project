@@ -370,16 +370,16 @@ def _compute_summary(
         tool_queue_sum[ev["tool_id"]] += ev["queue_time"]
         tool_wip_count[ev["tool_id"]] += 1
 
-    util_vals = [tool_utils[t] for t in unique_tools]
-    queue_vals = [tool_queue_sum[t] / max(tool_wip_count[t], 1) for t in unique_tools]
-    wip_vals = [tool_wip_count[t] for t in unique_tools]
+    tools_sorted = sorted(unique_tools)
+    util_vals = [tool_utils[t] for t in tools_sorted]
+    queue_vals = [tool_queue_sum[t] / max(tool_wip_count[t], 1) for t in tools_sorted]
+    wip_vals = [tool_wip_count[t] for t in tools_sorted]
 
     def _norm(vals):
         mn, mx = min(vals), max(vals)
         return [(v - mn) / (mx - mn) if mx > mn else 0.5 for v in vals]
 
     u_n, q_n, w_n = _norm(util_vals), _norm(queue_vals), _norm(wip_vals)
-    tools_sorted = sorted(unique_tools)
     comp_scores = {}
     for i, t in enumerate(tools_sorted):
         comp_scores[t] = u_n[i] * 0.4 + q_n[i] * 0.4 + w_n[i] * 0.2

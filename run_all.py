@@ -83,5 +83,5 @@ print(f"Saved: {summary_path} ({len(base_sum)} rows)")
 all_ev = flat_events
 
 print("\nGenerating charts...")
-generate_all_charts(all_ev, base_sum, ranking=ranking, improvements=all_improvements)
+generate_all_charts(all_ev, base_sum, ranking=ranking, improvements=all_improvements, events_by_rule=base_ev)
 print("All done!")
