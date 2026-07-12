@@ -163,6 +163,20 @@ jupyter notebook notebooks/
 - `02_dispatching_simulation.ipynb`：运行仿真、比较派工规则并生成图表
 - `03_capacity_scenario_analysis.ipynb`：瓶颈产能情景分析
 
+### 验证
+
+运行可复现性检查，验证管道输出：
+
+```bash
+# unittest（Python 内置，无需额外依赖）
+python -m unittest discover -s tests -v
+
+# 或 pytest（如已安装）
+python -m pytest tests -v
+```
+
+所有检查应全部通过：CSV 行数、图表文件存在性、FIFO KPI 阈值、源码语法。
+
 ## 6. 派工规则
 
 | 规则 | 逻辑 | IE 解读 |

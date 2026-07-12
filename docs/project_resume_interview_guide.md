@@ -54,17 +54,15 @@ Fab Capacity Simulation & Dispatching Optimization
 可以。当前项目已经能讲清楚业务问题、数据来源、模型逻辑、代码实现、结果和改进建议。
 ```
 
-### 1.2 还差什么？
+### 1.2 当前状态
 
-当前版本还有几个小问题，会影响“完全一键复现”和“代码严谨度”：
+以上问题已全部修复：
 
-1. 当前终端里 `python` 和 `py` 命令不可用。
-2. Codex 内置 Python 缺少 `matplotlib`，不能在当前终端直接完整重跑 `run_all.py`。
-3. `.git` 目录存在但不是有效 Git 仓库，`git status` 仍提示不是 repository。
-4. `simulator.py` 中 `composite_bottleneck_tool` 的计算建议再做一次索引顺序修正，避免 set 顺序导致分数和 tool 对不齐。
-
-这些问题不影响你解释项目主体，但如果要发 GitHub 或给面试官复现，建议先处理。
-
+1. ✅ `python` 命令可用，依赖通过 `requirements.txt` 管理。
+2. ✅ 项目已初始化 Git 仓库并推送到 GitHub。
+3. ✅ `simulator.py` 的瓶颈计算已修正，结果可稳定复现。
+4. ✅ 新增 `tests/test_reproducibility.py`，支持 `unittest discover` 和 `pytest`。
+5. ✅ MIT License 已添加。
 ## 2. 推荐最终完成标准
 
 如果你要把它作为正式简历项目，建议最终达到：

@@ -163,6 +163,20 @@ jupyter notebook notebooks/
 - `02_dispatching_simulation.ipynb` — Run simulations, compare rules, generate charts
 - `03_capacity_scenario_analysis.ipynb` — Bottleneck capacity scenarios
 
+### Validation
+
+Run the reproducibility checks to verify pipeline outputs:
+
+```bash
+# unittest (built-in, no extra dependencies)
+python -m unittest discover -s tests -v
+
+# or pytest (if installed)
+python -m pytest tests -v
+```
+
+All checks should pass: CSV row counts, chart file existence, FIFO KPI thresholds, and source code syntax.
+
 ## 6. Dispatching Rules
 
 | Rule | Logic | IE Interpretation |
